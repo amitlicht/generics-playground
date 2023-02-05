@@ -1,5 +1,8 @@
 # Generics Playground
-Go Generics Examples &amp; Games
+Go Generics Examples &amp; Demos
+
+<img src="./gophers.png" width="300">
+
 
 ## Usage
 ### Golang source code
