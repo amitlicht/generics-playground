@@ -37,6 +37,8 @@ func withTypedFilters() {
 // withAnyFilter demonstrates the use of "any" filters
 func withAnyFilter() {
 	log("--- With FilterAny: ---")
+
+	// convert animals from []string to []any
 	animalsAny := make([]any, len(animals))
 	for i, a := range animals {
 		animalsAny[i] = a
@@ -44,6 +46,7 @@ func withAnyFilter() {
 	isCoolAny := func(item any, i int) bool { return isCool(item.(string), i) }
 	log(filters.FilterAny(animalsAny, isCoolAny)) // [gopher otter]
 
+	// convert numbers from []int to []any
 	numbersAny := make([]any, len(numbers))
 	for i, n := range numbers {
 		numbersAny[i] = n
