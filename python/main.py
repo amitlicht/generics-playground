@@ -20,4 +20,3 @@ print(
      for a in animals
      if is_cool(a)}
 )
-
