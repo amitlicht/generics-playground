@@ -6,6 +6,7 @@ import (
 	"github.com/amitlicht/generics-playground/filters"
 	"github.com/amitlicht/generics-playground/set"
 	"github.com/samber/lo"
+	"sort"
 	"strings"
 )
 
@@ -77,7 +78,7 @@ func withGenericFilter() {
 	log(filters.FilterGeneric(numbers, isPos))  // [100 50]
 
 	// Compiler error:
-	// Cannot use 'isPos' (type func(item int) bool) as the type func(item string) bool
+	// Cannot use 'isPos' (type func(item int, i int) bool) as the type func(item string, i int) bool
 	// filters.FilterGeneric(animals, isPos)
 }
 
@@ -136,6 +137,21 @@ func withSets() {
 		// random shuffle the animal's name
 		log(shuffle(a))
 	})
+}
+
+// SliceFn implements sort.Interface for a slice of T.
+type SliceFn[T any] struct {
+	s    []T
+	less func(T, T) bool
+}
+
+func (s SliceFn[T]) Len() int           { return len(s.s) }
+func (s SliceFn[T]) Swap(i, j int)      { s.s[i], s.s[j] = s.s[j], s.s[i] }
+func (s SliceFn[T]) Less(i, j int) bool { return s.less(s.s[i], s.s[j]) }
+
+// SortFn sorts s in place using a comparison function.
+func SortFn[T any](s []T, less func(T, T) bool) {
+	sort.Sort(SliceFn[T]{s, less})
 }
 
 func main() {
